@@ -2,6 +2,7 @@ package tan.chelsea.ssf_pizza_practice.model;
 
 import java.io.Serializable;
 
+import jakarta.json.JsonObject;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -53,5 +54,13 @@ public class Delivery implements Serializable {
         this.rush = rush;
     }
     
-    
+    public static Delivery createDeliveryJson(JsonObject o){
+        Delivery delivery = new Delivery();
+        delivery.setName(o.getString("name"));
+        delivery.setAddress("address");
+        delivery.setPhone(o.getString("phone"));
+        delivery.setRush(o.getBoolean("rush"));
+        delivery.setComments(o.getString("comments"));
+        return delivery;
+    }
 }

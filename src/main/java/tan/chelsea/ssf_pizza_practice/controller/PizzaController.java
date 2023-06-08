@@ -1,14 +1,18 @@
 package tan.chelsea.ssf_pizza_practice.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -64,6 +68,22 @@ public class PizzaController {
         Order order = pizzaService.savePizza(pizza, delivery);
         model.addAttribute("order", order);
         return "order";
+    }
+
+    @GetMapping(path = "/order/{orderId}")
+    public ResponseEntity<String> getOrderById (@PathVariable String orderId) throws IOException{
+        Order order = pizzaService.findById(orderId);
+        if (order == null){
+            return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("Order %s not found".formatted(orderId));
+        } else {
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(order.toJson().toString());
+        }
     }
     
 }

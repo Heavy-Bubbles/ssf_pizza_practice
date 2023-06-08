@@ -1,5 +1,7 @@
 package tan.chelsea.ssf_pizza_practice.repository;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,4 +21,11 @@ public class PizzaRepository {
             .set(order.getId(), order.toJson().toString());
     }
     
+    public Order findById(final String orderId) throws IOException{
+        String jsonStringVal = (String) template.opsForValue()
+            .get(orderId);
+        Order order = Order.createOrderJson(jsonStringVal);
+        return order;
+
+    }
 }

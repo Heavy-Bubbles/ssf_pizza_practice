@@ -1,9 +1,12 @@
 package tan.chelsea.ssf_pizza_practice.model;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.StringReader;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 
 
 public class Order implements Serializable {
@@ -41,6 +44,9 @@ public class Order implements Serializable {
     public Order(Pizza pizza, Delivery delivery) {
         this.pizza = pizza;
         this.delivery = delivery;
+    }
+
+    public Order() {
     }
 
     public String getName(){
@@ -96,5 +102,18 @@ public class Order implements Serializable {
             .add("quantity", this.getPizzaQuantity())
             .add("total", this.getTotalCost())
             .build();
+    }
+    
+    public static Order createOrderJson(String json) throws IOException{
+            JsonReader reader = (JsonReader) Json.createReader(new StringReader(json));
+            JsonObject object = reader.readObject();
+            Pizza pizza = Pizza.createPizzaJson(object);
+            Delivery delivery = Delivery.createDeliveryJson(object);
+            Order order = new Order(pizza, delivery);
+            order.setId(object.getString("orderId"));
+            order.setTotalCost(object.getJsonNumber("total").doubleValue());
+            return order;
+
+                
     }
 }

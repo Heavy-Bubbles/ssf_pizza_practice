@@ -1,5 +1,6 @@
 package tan.chelsea.ssf_pizza_practice.service;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -103,6 +104,10 @@ public class PizzaService {
         order.setTotalCost(calculateTotalCost(order));
         pizzaRepository.save(order);
         return order;
+    }
+
+    public Order findById(String orderId) throws IOException{
+        return pizzaRepository.findById(orderId);
     }
     
 }
