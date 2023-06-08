@@ -66,6 +66,9 @@
 								<input type="radio" name="pizza" value="currychicken" field="*{pizza}"> Curry Chicken
 							</div>
 						</td>
+						<td>
+							<p data-th-if="${#fields.hasErrors('pizza')}" data-th-errors="*{pizza}" style="color: red;"></p>
+						</td>
 					</tr>
 					<tr>
 						<td>Size:</td>
@@ -76,6 +79,9 @@
 								<option value="lg">Large</option>
 								<option value="xlg">Extra Large</option>
 							</select>
+						</td>
+						<td>
+							<p data-th-if="${#fields.hasErrors('size')}" data-th-errors="*{size}" style="color: red;"></p>
 						</td>
 					</tr>
 					<tr>
@@ -88,6 +94,9 @@
 						<td></td>
 						<td>
 							<button type="submit">Next</button>
+						</td>
+						<td>
+							<p data-th-if="${#fields.hasErrors('quantity')}" data-th-errors="*{quantity}" style="color: red;"></p>
 						</td>
 					</tr>
 				</table>

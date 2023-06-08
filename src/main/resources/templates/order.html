@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+</head>
+<body data-th-object="${order}">
+    <h1>Delivery Details:</h1>
+    <p>
+        Order Number:
+        <span data-th-text="*{id}"></span>
+        <br>
+        Your order will be delivered to: 
+        <span data-th-text="*{address}"></span>
+        <br>
+        Pizza cost: $ 
+        <span data-th-text = "${order.getPizzaCost()}"></span>
+        <br>
+        <span data-th-text= "${order.getRush()} ? 'Rush: $2' : ''" ></span>
+        <br>
+        Total cost: $
+        <span data-th-text="*{totalCost}"></span>
+    </p>
+</body>
+</html>
