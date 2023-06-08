@@ -10,7 +10,7 @@
     <h1>Delivery Details:</h1>
     <p>
         Order Number:
-        <a data-th-href="@{/order/{orderId}{orderId = ${order.id}}}" data-th-text="*{id}"></a>
+        <a data-th-href="@{/order/{orderId}(orderId = ${order.id})}" data-th-text="*{id}"></a>
         <br>
         Your order will be delivered to: 
         <span data-th-text="*{address}"></span>
